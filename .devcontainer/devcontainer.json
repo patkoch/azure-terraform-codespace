@@ -8,7 +8,7 @@
   "remoteUser": "vscode",
 
   // Confirm the toolchain is available once the container is created.
-  "postCreateCommand": "az version && terraform -version && tflint --version && git --version",
+  "postCreateCommand": "bash .devcontainer/verify-tools.sh",
 
   "customizations": {
     "vscode": {

@@ -1,0 +1,27 @@
+name: Verify dev container
+
+on:
+  push:
+    paths:
+      - '.devcontainer/**'
+      - '.github/workflows/verify-devcontainer.yml'
+  pull_request:
+    paths:
+      - '.devcontainer/**'
+      - '.github/workflows/verify-devcontainer.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and verify the Codespaces dev container
+        uses: devcontainers/ci@513af61f4de4f75d37e4438f184ba4358f0fc1ca # v0.3
+        with:
+          push: never
+          runCmd: bash .devcontainer/verify-tools.sh

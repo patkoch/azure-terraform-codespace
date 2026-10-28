@@ -60,6 +60,27 @@ In addition, I also prove that Terraform was provided properly by typing “terr
 
 So my Codespace named “obscure funicular” is ready, which includes my customized dev container, and I would be ready to start my development using Terraform on Azure.
 
+## Verify the dev container toolchain
+
+Codespace creation automatically checks Terraform, TFLint, Azure CLI, and Git
+as the non-root `vscode` user. To repeat the checks in the Codespace terminal:
+
+```bash
+bash .devcontainer/verify-tools.sh
+```
+
+The check prints installed versions, then runs Terraform formatting,
+initialization, validation, and planning plus TFLint against a temporary
+configuration using Terraform's built-in provider. It also checks Azure CLI's
+resource-group command help. No Azure login is required, and no cloud resources
+are created. Temporary files are removed when the check exits.
+
+The **Verify dev container** GitHub Actions workflow builds and starts the same
+`.devcontainer/devcontainer.json` configuration and repeats these checks without
+publishing an image. This verifies the container independently of Codespaces
+provisioning. Azure deployments still require `az login` and suitable subscription
+permissions.
+
 ## Stop your Codespace
 
 Don’t forget to stop the Codespace, if you don’t need it:
